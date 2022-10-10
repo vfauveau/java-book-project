@@ -16,17 +16,8 @@
 <body style="height: 100vh" class="p-0 d-flex flex-column">
 <!-- Image and text -->
 <main class="flex-grow-1 d-flex flex-column">
-    <header class="header container-fluid bg-dark shadow- m-0 p-0">
-        <nav class="navbar navbar-light bg-dark p-3">
-            <div class="navbar-nav  d-flex flex-row">
-                <a class="nav-item nav-link text-white mx-2"
-                   href="${pageContext.request.contextPath}/books/all">Home</a>
-                <a class="nav-item nav-link text-white mx-2" href="#">Our books</a>
-                <a class="nav-item nav-link text-white mx-2" href="#">Discover</a>
-                <a class="nav-item nav-link text-white mx-2" href="${pageContext.request.contextPath}/books/add">Add a book</a>
-            </div>
-        </nav>
-    </header>
+
+    <c:import url="header.jsp"/>
     <div class="shadow p-2 mb-3" style="height: 4rem;
     background-color: rgba(0, 0, 0, .1);
     border: solid rgba(0, 0, 0, .15);
@@ -49,35 +40,28 @@
     <div class="container">
         <div class="row d-flex flex-wrap justify-content-center justify-content-md-start">
             <c:forEach items="${books}" var="book">
-                <div style="min-height: 500px" class="col-8 col-md-3 col-lg-3 mb-2">
-                    <div class="card h-100 p-2 shadow">
-                        <img class="card-img-top border shadow-sm" src="${book.pictureUrl}" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">${book.name}</h5>
-                            <p class="card-text">Publication date : ${book.publishingDate}</p>
+                <div style="min-height: 500px; max-height: max-content" class="col-8 col-md-5 col-lg-4 col-xl-3 mb-2">
+                    <div class="card h-100 p-2 shadow d-flex flex-column" style="min-height: 500px; max-height: max-content" >
+                        <img class="card-img-top border shadow-sm h-75 " src="${book.pictureUrl}"
+                             alt="Card image cap">
+                        <div class="card-body h-25">
+                            <span class="card-title"><b>${book.name}</b></span>
+                            <p class="card-text">Prix : ${book.price}€</p>
+                            <a class="btn btn-dark mb-1 w-100" data-toggle="collapse1"
+                               href="${pageContext.request.contextPath}/books/details/${book.id}" role="button"
+                               aria-expanded="false" aria-controls="collapseExample1">
+                                Buy
+                            </a>
                         </div>
-                        <a href="#" class="btn btn-dark mb-1">${book.author}</a>
-                        <a class="btn btn-dark mb-1" data-toggle="collapse1"
-                           href="${pageContext.request.contextPath}/books/details/${book.id}" role="button"
-                           aria-expanded="false" aria-controls="collapseExample1">
-                            Buy
-                        </a>
+                            <%-- <a href="#" class="btn btn-dark mb-1">${book.author}</a> --%>
                     </div>
                 </div>
             </c:forEach>
         </div>
     </div>
 </main>
-<footer class="py-3 my-4">
-    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
-    </ul>
-    <p class="text-center text-muted">© 2021 Company, Inc</p>
-</footer>
+
+<c:import url="footer.jsp"/>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>

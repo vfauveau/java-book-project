@@ -1,6 +1,7 @@
 package com.example.book.controller;
 
-import com.example.book.repository.entity.Book;
+import com.example.book.repository.entity.book.Book;
+import com.example.book.repository.entity.book.CreateBook;
 import com.example.book.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +41,7 @@ public String searchBookByName(Model model, @RequestParam("search-book") String 
             List<Book> bookList = bookService.findBookByName(name);
             model.addAttribute("books", bookList);
         } else {
-            List<Book> bookList = bookService.getAllBooks();
+            List<Book> bookList = bookService.getAllBooksOrderedByName();
             model.addAttribute("books", bookList);
         }
         return "bookListView";
@@ -48,10 +49,10 @@ public String searchBookByName(Model model, @RequestParam("search-book") String 
 
 
     @GetMapping(path = "/details/{id}")
-    public String findCustomerById(Model model, @PathVariable("id") Long id) {
+    public String findBookById(Model model, @PathVariable("id") Long id) {
         Book book = bookService.getBookById(id);
         model.addAttribute("book", book);
-        return "details";
+        return "bookDetails";
     }
 
     @GetMapping("/add")
@@ -60,15 +61,27 @@ public String searchBookByName(Model model, @RequestParam("search-book") String 
     }
 
     @PostMapping("/add")
-    public RedirectView addBook(@ModelAttribute("book") Book book) {
-        bookService.createBook(book);
+    public RedirectView addBook(CreateBook createBook) {
+        bookService.addBook(createBook);
         return new RedirectView("/books/all");
     }
-
 
     @PostMapping("/details/{id}/delete")
     public RedirectView deleteBook(@PathVariable("id") Long id) {
         bookService.deleteBook(id);
         return new RedirectView("/books/all");
+    }
+
+    @GetMapping("/edit/{id}")
+    public String getEditBook(@PathVariable("id") Long id, Model model) {
+        Book book = bookService.getBookById(id);
+        model.addAttribute("book", book);
+        return "bookEdit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public RedirectView postEditBook(@PathVariable("id") Long id, Book newBook) {
+        bookService.editBook(id, newBook);
+        return new RedirectView("/books/details/{id}");
     }
 }
