@@ -26,14 +26,15 @@
             Book List
         </h1>
     </div>
-    <!-- Book add form -->
+    <!-- Book list display -->
     <div class="container">
         <div class="row d-flex flex-wrap justify-content-center justify-content-md-start">
 
-            <form class="container h-25 w-50 bg-light rounded-1" method="post" action="${pageContext.request.contextPath}/books/add/">
-                <h4 class="form-text h-25 text-center">Add a book</h4>
+            <form class="container h-25 w-50" action="${pageContext.request.contextPath}/books/edit/${book.id}/" method="post">
+                <label for="name"></label>
+                <h4 class="form-text h-25 text-center">Edit a book</h4>
                 <label class="my-2" for="name">Title</label>
-                <input class="form-control" type="text" id="name" name="name">
+                <input class="form-control" type="text" id="name" name="name" value="${book.name}">
 
                 <%--
                 <label class="my-2" for="author">Author</label>
@@ -41,22 +42,21 @@
                 --%>
 
                 <label class="my-2" for="date">Publishing date</label>
-                <input class="form-control" id="date" type="date" name="publishingDate">
+                <input class="form-control" id="date" type="date" name="publishingDate" value="${book.publishingDate}">
 
                 <label class="my-2" for="price">Price</label>
                 <input class="form-control" name="price" id="price" min="0" step="0.01" type="number">
 
                 <label class="my-2" for="coverUrl">Picture url</label>
-                <input class="form-control" id="coverUrl" type="text" name="pictureUrl">
+                <input class="form-control" id="coverUrl" type="text" name="pictureUrl" value="${book.pictureUrl}">
 
                 <label class="my-2" for="summary">Summary</label>
-                <input class="form-control" id="summary" type="text" name="summary">
+                <input class="form-control" id="summary" type="text" name="summary" value="${book.summary}">
 
                 <label class="my-2" for="rating">Rating</label>
-                <input class="form-control" id="rating" type="number" min="0" max="5" name="rating">
+                <input class="form-control" id="rating" type="number" min="0" max="5" name="rating" value="${book.rating}">
                 <input class="form-control my-2 " type="submit">
             </form>
-
         </div>
     </div>
 </main>
