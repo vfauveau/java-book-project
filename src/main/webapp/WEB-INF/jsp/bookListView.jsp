@@ -10,7 +10,6 @@
     <title>Book Project | Home - List</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-
 </head>
 
 <body style="height: 100vh" class="p-0 d-flex flex-column">
@@ -30,7 +29,7 @@
     <!-- Search bar -->
     <div class="container-fluid align-items-center d-flex justify-content-center mt-4 mb-5">
         <form method="get" action="${pageContext.request.contextPath}/books/all"
-              class="form-inline w-25 d-flex">
+              class="form-inline w-50 d-flex">
             <input class="form-control mr-sm-2 btn-outline-dark text-dark mx-2" type="search" name="search"
                    placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-dark my-2 my-sm-0 w-25" type="submit">Search</button>
@@ -38,7 +37,7 @@
     </div>
     <!-- Book list display -->
     <div class="container">
-        <div class="row d-flex flex-wrap justify-content-center justify-content-md-start">
+        <div class="row d-flex flex-wrap justify-content-center justify-content-lg-start">
             <c:forEach items="${books}" var="book">
                 <div style="min-height: 500px; max-height: max-content" class="col-8 col-md-5 col-lg-4 col-xl-3 mb-2">
                     <div class="card h-100 p-2 shadow d-flex flex-column" style="min-height: 500px; max-height: max-content" >
@@ -53,7 +52,6 @@
                                 Buy
                             </a>
                         </div>
-                            <%-- <a href="#" class="btn btn-dark mb-1">${book.author}</a> --%>
                     </div>
                 </div>
             </c:forEach>

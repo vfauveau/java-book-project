@@ -13,14 +13,13 @@ public class Book implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     @Column(unique = true)
     private String name;
-
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private List<Author> author;
+    private List<Author> authorList;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate publishingDate;
+    @Nullable
     private double price;
     @Nullable
     private String pictureUrl;
@@ -28,11 +27,11 @@ public class Book implements Serializable {
     private String summary;
     @Nullable
     private double rating;
+
     public Book() {}
 
-    public Book(String name, List<Author> author, LocalDate publishingDate, int price, String pictureUrl, String summary, double rating) {
+    public Book(String name, LocalDate publishingDate, int price, String pictureUrl, String summary, double rating) {
         this.name = name;
-        this.author = author;
         this.publishingDate = publishingDate;
         this.price = price;
         this.pictureUrl = pictureUrl;
@@ -64,10 +63,10 @@ public class Book implements Serializable {
         this.name = name;
     }
     public List<Author> getAuthor() {
-        return author;
+        return authorList;
     }
     public void setAuthor(List<Author> author) {
-        this.author = author;
+        this.authorList = author;
     }
     public LocalDate getPublishingDate() {
         return publishingDate;
@@ -89,4 +88,8 @@ public class Book implements Serializable {
         this.rating = rating;
     }
 
+    public void addAuthor(Author author){
+        this.authorList.add(author);
+        author.getHisBooks().add(this);
+    }
 }

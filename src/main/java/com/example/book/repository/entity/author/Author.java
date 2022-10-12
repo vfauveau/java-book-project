@@ -9,11 +9,10 @@ import java.util.List;
 
 @Entity
 public class Author  implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "authorList")
     private List<Book> hisBooks;
     private String firstName;
     private String lastName;
@@ -25,12 +24,6 @@ public class Author  implements Serializable {
     public Long getId() {
         return id;
     }
-    public List<Book> getHisBooks() {
-        return hisBooks;
-    }
-    public void setHisBooks(List<Book> hisBooks) {
-        this.hisBooks = hisBooks;
-    }
 
     public Author(List<Book> hisBooks, String firstName, String lastName) {
         this.hisBooks = hisBooks;
@@ -41,7 +34,6 @@ public class Author  implements Serializable {
     public String getFirstName() {
         return firstName;
     }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -49,8 +41,15 @@ public class Author  implements Serializable {
     public String getLastName() {
         return lastName;
     }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public List<Book> getHisBooks() {
+        return hisBooks;
+    }
+
+    public void setHisBooks(List<Book> hisBooks) {
+        this.hisBooks = hisBooks;
     }
 }

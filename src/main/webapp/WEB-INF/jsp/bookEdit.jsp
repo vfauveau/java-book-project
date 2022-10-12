@@ -36,11 +36,6 @@
                 <label class="my-2" for="name">Title</label>
                 <input class="form-control" type="text" id="name" name="name" value="${book.name}">
 
-                <%--
-                <label class="my-2" for="author">Author</label>
-                <input class="form-control" id="author" type="text" name="authorName">
-                --%>
-
                 <label class="my-2" for="date">Publishing date</label>
                 <input class="form-control" id="date" type="date" name="publishingDate" value="${book.publishingDate}">
 
