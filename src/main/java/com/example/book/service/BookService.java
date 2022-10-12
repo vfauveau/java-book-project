@@ -57,10 +57,10 @@ public class BookService {
 
         MultipartFile picture = book.getPictureFile();
         if(picture == null){
-            b.setPictureUrl((book.getPictureUrl()));
+            b.setPictureUrl(book.getPictureUrl());
         }else{
             storageService.store(picture);
-            b.setPictureUrl("http://localhost:8080/uploads/" + picture.getOriginalFilename());
+            b.setPictureUrl("http://localhost:8080/images/" + picture.getOriginalFilename());
         }
         this.bookRepository.save(b);
     }
