@@ -1,13 +1,18 @@
 package com.example.book.controller;
 
+import com.example.book.repository.entity.author.Author;
 import com.example.book.repository.entity.book.Book;
 import com.example.book.repository.entity.book.CreateBook;
+import com.example.book.service.AuthorService;
 import com.example.book.service.BookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.annotation.MultipartConfig;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -15,9 +20,11 @@ import java.util.List;
 public class BookController {
 
     private BookService bookService;
+    private AuthorService authorService;
 
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, AuthorService authorService) {
         this.bookService = bookService;
+        this.authorService = authorService;
     }
 
     /*
@@ -56,12 +63,14 @@ public String searchBookByName(Model model, @RequestParam("search-book") String 
     }
 
     @GetMapping("/add")
-    public String getaddBookForm() {
+    public String getaddBookForm(Model model) {
+        List<Author> authors = authorService.getAllAuthors();
+        model.addAttribute("authors", authors);
         return "bookAdd";
     }
 
     @PostMapping("/add")
-    public RedirectView addBook(CreateBook createBook) {
+    public RedirectView addBook(CreateBook createBook){
         bookService.addBook(createBook);
         return new RedirectView("/books/all");
     }

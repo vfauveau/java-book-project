@@ -2,8 +2,10 @@ package com.example.book.repository.entity.book;
 
 import com.example.book.repository.entity.book.Book;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class CreateBook {
     private String name;
@@ -11,21 +13,11 @@ public class CreateBook {
     private String summary;
     private String pictureUrl;
     private double rating;
+    private MultipartFile pictureFile;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate publishingDate;
-
+    private List<Long> authorId;
     public CreateBook(){}
-
-    public Book toBook() {
-        Book b = new Book();
-        b.setName(this.name);
-        b.setPrice(this.price);
-        b.setRating(this.rating);
-        b.setPictureUrl(this.pictureUrl);
-        b.setPublishingDate(this.publishingDate);
-        return b;
-    }
-
 
     public String getName() {
         return name;
@@ -73,5 +65,21 @@ public class CreateBook {
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public List<Long> getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(List<Long> authorId) {
+        this.authorId = authorId;
+    }
+
+    public MultipartFile getPictureFile() {
+        return pictureFile;
+    }
+
+    public void setPictureFile(MultipartFile pictureFile) {
+        this.pictureFile = pictureFile;
     }
 }
