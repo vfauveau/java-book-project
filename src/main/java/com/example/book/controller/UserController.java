@@ -28,6 +28,6 @@ public class UserController {
     @PostMapping("/register")
     public String createUser(CreateUser createUser) {
         userService.registerUser(createUser);
-        return "register_success";
+        return "bookListView";
     }
 }

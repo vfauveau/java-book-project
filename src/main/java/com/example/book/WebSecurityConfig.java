@@ -63,9 +63,6 @@ public class WebSecurityConfig {
         };
     }
 
-    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.parentAuthenticationManager(null);
-    }
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
