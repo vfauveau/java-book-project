@@ -1,2 +1,8 @@
-package com.example.book.api;public class BaseApiController {
+package com.example.book.api;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+
+
+@RequestMapping("/api")
+public class BaseApiController {
 }

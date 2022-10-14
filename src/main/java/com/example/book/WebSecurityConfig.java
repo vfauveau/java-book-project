@@ -3,8 +3,10 @@ package com.example.book;
 import javax.sql.DataSource;
 
 import com.example.book.service.CustomUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -20,8 +23,11 @@ public class WebSecurityConfig {
 
     private final DataSource dataSource;
 
-    public WebSecurityConfig(DataSource dataSource) {
+    private final CustomLogoutHandler logoutHandler;
+
+    public WebSecurityConfig(DataSource dataSource, CustomLogoutHandler logoutHandler) {
         this.dataSource = dataSource;
+        this.logoutHandler = logoutHandler;
     }
 
     @Bean
@@ -43,15 +49,17 @@ public class WebSecurityConfig {
         http
                 .authorizeRequests()
                 .antMatchers("/books/*").permitAll()
+                .antMatchers("/api/**").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
+                .loginPage("/login")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/books/all/")
                 .permitAll()
                 .and()
-                .logout().logoutSuccessUrl("/").permitAll();
+                .logout().logoutUrl("/logout").addLogoutHandler(logoutHandler).logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK)).permitAll();
 
         return http.build();
     }

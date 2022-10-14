@@ -13,10 +13,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-public class BookController extends BaseApiController {
+public class BookApiController extends BaseApiController {
 
     BookService bookService;
-    public BookController(BookService bookService){
+    public BookApiController(BookService bookService){
         this.bookService = bookService;
     }
 
@@ -28,4 +28,5 @@ public class BookController extends BaseApiController {
         }).collect(Collectors.toList());
 
         return new ResponseEntity<>(bookDTOList, HttpStatus.OK);    }
+
 }
