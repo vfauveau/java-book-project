@@ -1,8 +1,15 @@
 package com.example.book.repository.entity.user;
 
-public class CreateUser {
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+public class CreateUser {
+    @NotNull
+    @Email(message = "L'email doit etre valide")
     private String email;
+    @NotNull
+    @Size(min = 4)
     private String password;
 
     public CreateUser(){}
